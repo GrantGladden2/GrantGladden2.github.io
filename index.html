@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ============================================================
+       EDIT: Page title and description (shows in browser tab and Google)
+       ============================================================ -->
+  <title>Your Name | Portfolio</title>
+  <meta name="description" content="Portfolio of Your Name, a designer and developer based in Your City.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       EDIT: COLORS AND FONTS
+       Change these values and the whole site updates.
+       ============================================================ */
+    :root {
+      --bg:        #F3F5F9;   /* page background */
+      --surface:   #FFFFFF;   /* boxes, tags */
+      --ink:       #14213D;   /* main text */
+      --muted:     #5B6577;   /* secondary text */
+      --line:      #D9DEE8;   /* thin dividing lines */
+      --accent:    #2D4BFF;   /* links, buttons, highlights */
+      --accent-ink:#FFFFFF;   /* text on top of the accent color */
+
+      --font-heading: "Bricolage Grotesque", system-ui, sans-serif;
+      --font-body:    "Figtree", system-ui, sans-serif;
+
+      --page-width: 1040px;
+    }
+
+    /* Dark mode: used automatically if the visitor's device is set to dark */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:      #0F1420;
+        --surface: #182033;
+        --ink:     #E8ECF5;
+        --muted:   #9AA5BC;
+        --line:    #28324A;
+        --accent:  #8DA0FF;
+        --accent-ink: #0F1420;
+      }
+    }
+
+    /* ============================================================
+       Base styles (you usually don't need to touch these)
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    img { max-width: 100%; display: block; }
+
+    h1, h2, h3 {
+      font-family: var(--font-heading);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .wrap { max-width: var(--page-width); margin: 0 auto; padding: 0 1.5rem; }
+    section { padding: 5rem 0; border-top: 1px solid var(--line); }
+    section h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 2.5rem; }
+
+    /* ---------- Navigation ---------- */
+    header.site {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    header.site .wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 4rem;
+    }
+    .logo {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1.15rem;
+      color: var(--ink); text-decoration: none;
+    }
+    nav ul { list-style: none; display: flex; gap: 1.75rem; margin: 0; padding: 0; }
+    nav a { color: var(--muted); text-decoration: none; font-weight: 500; }
+    nav a:hover { color: var(--ink); }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 6rem 0 5.5rem; border-top: 0; }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: end;
+    }
+    .hero h1 {
+      font-size: clamp(3.2rem, 11vw, 7.5rem);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+    }
+    .hero p.intro {
+      font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+      color: var(--muted);
+      max-width: 34em;
+      margin: 1.75rem 0 2.25rem;
+    }
+    .portrait {
+      width: 220px; height: 220px; border-radius: 50%;
+      background: var(--accent); color: var(--accent-ink);
+      display: grid; place-items: center;
+      font-family: var(--font-heading); font-weight: 800; font-size: 4.5rem;
+      overflow: hidden;
+    }
+    .portrait img { width: 100%; height: 100%; object-fit: cover; }
+
+    .btn {
+      display: inline-block; padding: 0.8rem 1.5rem; border-radius: 999px;
+      font-weight: 600; text-decoration: none;
+      background: var(--accent); color: var(--accent-ink);
+      border: 2px solid var(--accent);
+      transition: transform .15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); margin-left: .5rem; }
+    .btn.ghost:hover { border-color: var(--ink); }
+
+    /* ---------- Projects ---------- */
+    .project {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 2rem;
+      padding: 2rem 0; border-top: 1px solid var(--line);
+    }
+    .project:first-of-type { border-top: 0; padding-top: 0; }
+    .project h3 { font-size: 1.6rem; margin-bottom: .4rem; }
+    .project .year { color: var(--muted); font-size: .95rem; }
+    .project p { margin: 0 0 1rem; max-width: 36em; }
+    .tags { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1.1rem; padding: 0; }
+    .tags li {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 999px; padding: .15rem .75rem; font-size: .9rem; color: var(--muted);
+    }
+    .project-links a { font-weight: 600; margin-right: 1.25rem; }
+
+    /* ---------- About ---------- */
+    .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3.5rem; }
+    .about-grid p { margin: 0 0 1.1rem; max-width: 36em; }
+    .about-grid h3 { font-size: 1.15rem; margin-bottom: .75rem; }
+    .about-grid ul { list-style: none; padding: 0; margin: 0 0 2rem; }
+    .about-grid li { padding: .45rem 0; border-bottom: 1px solid var(--line); }
+    .about-grid li span { color: var(--muted); float: right; }
+
+    /* ---------- Contact ---------- */
+    .contact h2 { margin-bottom: 1rem; }
+    .contact p { font-size: 1.2rem; color: var(--muted); max-width: 30em; margin: 0 0 2rem; }
+    .email {
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: clamp(1.6rem, 5vw, 3rem); letter-spacing: -0.02em;
+      color: var(--ink); text-decoration-color: var(--accent);
+      text-decoration-thickness: 3px; text-underline-offset: 6px;
+    }
+    .social { list-style: none; display: flex; flex-wrap: wrap; gap: 1.5rem; padding: 0; margin: 2.5rem 0 0; }
+    .social a { font-weight: 600; }
+
+    footer { padding: 2rem 0 3rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .95rem; }
+
+    /* ---------- Phones and small screens ---------- */
+    @media (max-width: 760px) {
+      .hero-grid, .project, .about-grid { grid-template-columns: 1fr; }
+      .portrait { width: 140px; height: 140px; font-size: 3rem; order: -1; }
+      nav ul { gap: 1.1rem; }
+      section { padding: 3.5rem 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+       EDIT: the logo text and menu names. The "#projects" part must
+       match the id="projects" on the section below.
+       ============================================================ -->
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="#top">Your Name</a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============================================================
+         HERO (the first thing people see)
+         EDIT: your name, intro sentence, and the two buttons.
+         To use a real photo: replace the letters inside the
+         <div class="portrait"> with:
+           <img src="photo.jpg" alt="Photo of Your Name">
+         and upload photo.jpg next to this file.
+         ============================================================ -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <h1>Your Name</h1>
+          <p class="intro">
+            I'm a [your job or title] based in [your city]. I build [the kind of work you do]
+            for [the kind of people or companies you do it for].
+          </p>
+          <a class="btn" href="#projects">See my work</a>
+          <a class="btn ghost" href="#contact">Get in touch</a>
+        </div>
+        <div class="portrait" aria-hidden="false">YN</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PROJECTS
+         EDIT: Each <article class="project"> is one project.
+         To add a project: copy a whole <article>...</article> block
+         and paste it right below the last one.
+         To remove one: delete its whole block.
+         Replace each href="#" with the real link.
+         ============================================================ -->
+    <section id="projects">
+      <div class="wrap">
+        <h2>Projects</h2>
+
+        <article class="project">
+          <div>
+            <h3>Project One</h3>
+            <span class="year">2025</span>
+          </div>
+          <div>
+            <p>
+              Two or three sentences on what this project is, what your role was,
+              and what came out of it.
+            </p>
+            <ul class="tags">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+            </ul>
+            <div class="project-links">
+              <a href="#">View live site</a>
+              <a href="#">View code</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div>
+            <h3>Project Two</h3>
+            <span class="year">2024</span>
+          </div>
+          <div>
+            <p>
+              Describe the problem you were solving and how you approached it.
+              Numbers help, such as "cut load time by 40%".
+            </p>
+            <ul class="tags">
+              <li>Python</li>
+              <li>Data analysis</li>
+            </ul>
+            <div class="project-links">
+              <a href="#">Read the case study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div>
+            <h3>Project Three</h3>
+            <span class="year">2023</span>
+          </div>
+          <div>
+            <p>
+              Add as many projects as you like. Delete this one if you only have two.
+            </p>
+            <ul class="tags">
+              <li>Design</li>
+              <li>Figma</li>
+            </ul>
+            <div class="project-links">
+              <a href="#">View project</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ABOUT
+         EDIT: your bio, skills, and experience.
+         ============================================================ -->
+    <section id="about">
+      <div class="wrap">
+        <h2>About me</h2>
+        <div class="about-grid">
+          <div>
+            <p>
+              Write a short bio here. Say who you are, what you care about, and what
+              kind of work you want to do next. Keep it friendly and specific.
+            </p>
+            <p>
+              A second paragraph can cover what you do outside of work, which often
+              makes you more memorable.
+            </p>
+            <p><a href="resume.pdf">Download my resume</a></p>
+          </div>
+
+          <div>
+            <h3>Skills</h3>
+            <ul>
+              <li>Skill one</li>
+              <li>Skill two</li>
+              <li>Skill three</li>
+              <li>Skill four</li>
+            </ul>
+
+            <h3>Experience</h3>
+            <ul>
+              <li>Job title, Company <span>2023 to now</span></li>
+              <li>Job title, Company <span>2021 to 2023</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT
+         EDIT: your email and social links. Add or remove <li> lines.
+         ============================================================ -->
+    <section id="contact" class="contact">
+      <div class="wrap">
+        <h2>Let's work together</h2>
+        <p>I'm open to new projects and job opportunities. The best way to reach me is by email.</p>
+        <a class="email" href="mailto:you@example.com">you@example.com</a>
+
+        <ul class="social">
+          <li><a href="https://github.com/your-username">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/your-username">LinkedIn</a></li>
+          <li><a href="https://twitter.com/your-username">X / Twitter</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      &copy; 2026 Your Name
+    </div>
+  </footer>
+
+</body>
+</html>
